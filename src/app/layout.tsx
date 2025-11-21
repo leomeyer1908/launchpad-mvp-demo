@@ -10,8 +10,8 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "starter-next-supa-stripe",
-  description: "Next + Prisma + Supabase + Auth + Stripe + PostHog boilerplate",
+  title: "LaunchPad – SaaS MVP Starter",
+  description: "Example SaaS MVP starter with auth, Stripe, and a project dashboard.",
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

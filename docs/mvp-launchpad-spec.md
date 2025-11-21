@@ -198,6 +198,16 @@ These records should produce a dashboard that feels realistic:
 - Project count = `3`
 - With a mix of statuses and active user counts.
 
+### Loom walkthrough notes
+
+- Sign in as `founder@example.com`.
+- Go straight to `/dashboard`:
+  - Show summary metrics (`$2,100 MRR`, `3 projects`).
+  - Scroll through the three seeded project cards.
+- Optionally:
+  - Use the “New Project” form to add a fourth project live in the Loom.
+  - Point out that this mirrors what a founder would see after a 5-day MVP sprint.
+
 ---
 
 ## Summary
@@ -339,4 +349,124 @@ These are the flows you’ll likely show in your Loom:
 
 These flows are enough context to guide the implementation and to narrate a clear Loom walkthrough.
 
+---
+
+## README Positioning & Structure
+
+Goal: when someone lands on the repo, they immediately understand that this is a **demo SaaS MVP starter** that you can deliver in a week.
+
+The actual `README.md` will eventually be updated to follow this structure.
+
+### 1. Title & One-Line Description
+
+**Repo name (suggested):**
+
+- `LaunchPad – SaaS MVP Starter Demo`
+
+**Top tagline (one line):**
+
+> `LaunchPad: example SaaS MVP starter with email auth, Stripe subscription, and a simple project dashboard.`
+
+Optionally add a short follow-up sentence:
+
+> `Built to show what a founder gets from a 5-day MVP sprint: sign up, subscribe, see a real dashboard, and manage billing.`
+
+### 2. Stack Section
+
+Add a short **“Stack”** section with bullet points like:
+
+- Next.js (App Router, TypeScript, Tailwind)
+- Prisma + Supabase Postgres
+- Auth.js (magic-link email sign-in)
+- Stripe Checkout + Billing Portal
+- PostHog (analytics events)
+- Deployed on Vercel (for demo)
+
+This makes it immediately clear to technical founders/CTOs what they’re looking at.
+
+### 3. Quickstart / Setup Instructions
+
+Reuse and adapt the Quickstart from the original boilerplate README (install deps, env vars, Prisma migrate, dev server).
+
+Target subsections:
+
+1. **Clone & install**
+
+   - `npm install`
+
+2. **Environment**
+
+   - Copy `.env.example` → `.env`
+   - Fill in Supabase, Resend, Stripe, PostHog keys (same as boilerplate).
+   - Optionally mention that the demo uses `founder@example.com` as the seeded user.
+
+3. **Database**
+
+   - `npx prisma migrate dev`
+   - (Later, when the seed script exists) `npm run seed` or `node prisma/seed.ts` to create `founder@example.com` and demo projects.
+
+4. **Run dev server**
+
+   - `npm run dev`
+   - Visit `http://localhost:3000`
+
+You don’t need to write the exact commands here; just note that the Quickstart section will closely mirror the boilerplate setup with a small “demo user” note added.
+
+### 4. “What This Demo Includes” Section
+
+Add a section like:
+
+> `## What this demo includes`
+
+Bullets to cover:
+
+- Email magic-link sign-in via Auth.js.
+- Stripe subscription checkout for a single plan (test mode).
+- Redirect to `/success` on successful checkout and `/cancelled` if abandoned.
+- Protected `/dashboard` page:
+  - Greeting with signed-in email.
+  - Summary metrics (Total MRR, project count, optional active projects).
+  - “Your Projects” list with seeded example projects.
+  - “New Project” form to add a new project.
+- Stripe Billing Portal link from the protected area for managing subscription.
+
+This mirrors the flows you’ll show in your Loom: **sign in → subscribe → dashboard → manage billing.**
+
+### 5. “How This Maps to Real MVPs” Section
+
+Add a section like:
+
+> `## How this maps to real MVPs`
+
+Use short bullets to explain how you’d customize this for a real client:
+
+- Swap the `Project` model for the client’s core entities (e.g., bookings, customers, properties, campaigns).
+- Customize pricing and Stripe products (multiple tiers, annual plans, trial periods).
+- Add more views to the dashboard (filters, charts, per-project drill-down).
+- Integrate the client’s preferred tools (CRM, email provider, analytics stack).
+- Layer in role-based access (admin vs. member), teams/workspaces if needed.
+- Iterate through 1–2 weekly sprints to add features once the MVP skeleton is live.
+
+This section makes it obvious that:
+
+- This demo is a **starting point**, not a toy.
+- You already have a mental model for turning it into a paid engagement.
+
+### 6. “Who This Is For” (Optional but Helpful)
+
+Optional small section:
+
+> `## Who this is for`
+
+Bullets such as:
+
+- Indie SaaS founders who need something demo-ready in under a week.
+- Small teams that want to validate billing + core UI before investing in a full build.
+- Agencies that need a solid technical base for client MVPs.
+
+This ties directly back to your **MVP Jumpstart** offer and gives context when you link the repo from your Notion/offer menu.
+
+---
+
+**Note:** This section is a planning guide. The actual `README.md` can be updated after the dashboard and seeding are implemented so the description perfectly matches what the app does.
 
