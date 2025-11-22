@@ -7,22 +7,45 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum ProjectStatus {
+  ACTIVE
+  TRIALING
+  PAUSED
+  CANCELLED
+}
+
 model User {
-  id            String   @id @default(cuid())
-  name          String?
-  email         String?  @unique
-  emailVerified DateTime?
-  image         String?
-  // Relations
-  accounts      Account[]
-  // App fields (add your own later)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  // Stripe
-  stripeCustomerId     String? @unique
-  stripeSubscriptionId String?
+  id                   String    @id @default(cuid())
+  name                 String?
+  email                String?   @unique
+  emailVerified        DateTime?
+  image                String?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  planStatus           String?
+  stripeCustomerId     String?   @unique
   stripePriceId        String?
-  planStatus           String? // 'active' | 'past_due' | 'canceled' | etc.
+  stripeSubscriptionId String?
+  accounts             Account[]
+  projects             Project[]
+}
+
+model Project {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name        String
+  description String?
+  mrr         Int // store whole dollars, e.g. 1200 = $1,200
+  activeUsers Int
+  status      ProjectStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
 }
 
 model Account {
@@ -31,24 +54,22 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
 
 model VerificationToken {
   identifier String
-  token      String @unique
+  token      String   @unique
   expires    DateTime
 
   @@unique([identifier, token])
 }
-
