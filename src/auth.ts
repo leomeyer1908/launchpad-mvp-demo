@@ -31,7 +31,6 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   secret: process.env.AUTH_SECRET,
-  trustHost: true,
   callbacks: {
     async jwt({ token, user }) { if (user) (token as any).userId = (user as any).id; return token; },
     async session({ session, token }) { if (token && (token as any).userId) (session as any).userId = (token as any).userId; return session; },

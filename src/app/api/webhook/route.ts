@@ -28,9 +28,9 @@ export async function POST(req: NextRequest) {
           expand: ["customer", "subscription"], // keep it shallow
         });
 
-        const email =
-          full.customer_details?.email ||
-          (typeof full.customer !== "string" ? full.customer?.email ?? undefined : undefined);
+        // customer_details.email is enough for this demo; we don't need to read from expanded customer
+		const email = full.customer_details?.email ?? undefined;
+
 
         const customerId =
           typeof full.customer === "string" ? full.customer : full.customer?.id;
