@@ -1,5 +1,4 @@
 import Image from "next/image";
-import TrackDemoButton from "@/components/TrackDemoButton";
 
 export default function Home() {
   return (
@@ -60,9 +59,6 @@ export default function Home() {
             Documentation
           </a>
         </div>
-		<div className="p-8">
-		  <TrackDemoButton />
-		</div>
       </main>
     </div>
   );

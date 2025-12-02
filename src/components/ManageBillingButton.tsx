@@ -23,7 +23,8 @@ export default function ManageBillingButton() {
     <button
       onClick={onClick}
       disabled={loading}
-      className="rounded bg-black text-white px-4 py-2 disabled:opacity-60"
+	  className="inline-flex items-center justify-center rounded-md bg-white text-black px-4 py-2 text-sm font-medium border border-zinc-300 hover:bg-zinc-100 hover:border-zinc-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed dark:bg-zinc-900 dark:text-white dark:border-zinc-700 dark:hover:bg-zinc-800"
+
     >
       {loading ? "Opening..." : "Manage billing"}
     </button>
